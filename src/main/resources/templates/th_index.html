@@ -1,0 +1,55 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Time Table Tool</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3mobile.css">
+<body style="background-color:#3B3E46;">
+
+<h2 style="text-align:center;color:#E8FD66;font: italic bold  40px/50px Georgia, serif;">Time Table Generation Tool</h2>
+<div class="title" th:if="${message}">
+    <h3 style="color:#97E771" th:text="${message}"/>
+</div>
+
+<div th:if="${error}">
+    <h3 style="color:#FB3636" th:text="${error}"/>
+</div>
+<table style="color: white;font-weight:bold">
+<div>
+    <form method="POST" enctype="multipart/form-data" action="/upload/">
+
+            <tr><td style="text-align:right">Ready with data? Upload here : </td><td><input type="file" name="file" value="Choose the file here" onclick="enableUploadButton()"/></td></tr>
+        <tr><td></td><td><input type="submit" id="uploadbutton" disabled value="Choose file to generate report"/></td></tr>
+    </form>
+
+</div>
+    <tr/><tr/><tr/><tr/><tr/><tr/><tr/>
+<div>
+    <form method="GET" action="/downloadSampleTemplate">
+        <tr><td style="text-align:right">Sample Data helps you to prepare data :</td><td><input type="submit" value="Sample Template"/></td></tr>
+    </form>
+
+</div>
+    <tr/><tr/><tr/><tr/><tr/><tr/><tr/>
+<div>
+    <form method="GET" action="/downloadTemplate">
+        <tr><td style="text-align:right">Use this template file to upload your institution data : </td><td><input type="submit" value="Download Template"/></td></tr>
+    </form>
+
+</div>
+    <tr/><tr/><tr/><tr/><tr/><tr/><tr/>
+<div th:if="${reportExists}">
+    <form method="GET" action="/download">
+            <tr><td style="text-align:right">Report Available :</td><td><input type="submit" value="Download Report"/></td></tr>
+    </form>
+
+</div>
+
+</table>
+</body>
+<script>
+    function enableUploadButton(){
+        document.getElementById("uploadbutton").disabled=false;
+        document.getElementById("uploadbutton").value="Generate Report";
+    }
+
+</script>
+</html>

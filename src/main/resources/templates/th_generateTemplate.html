@@ -1,0 +1,35 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<script>
+    function submitForm() {
+        var pathParam = "generate";
+        if ( document.getElementById('regenerateOption').checked) {
+            pathParam = "regenerate";
+        }
+        var formObj = document.getElementById('GenerateForm');
+        formObj.action+=pathParam;
+        formObj.submit();
+    }
+</script>
+
+<div th:if="${message}">
+    <h2 th:text="${message}"/>
+</div>
+
+<div th:if="${error}">
+    <h2 th:text="${error}"/>
+</div>
+
+<div>
+    <form action="http://localhost:8090/generateTemplate/" id="GenerateForm" method="get" >
+        <table>
+            <tr><td><input type="button" onclick="submitForm()" value="Generate Template"></input></td></tr>
+            <tr><td>Regenarate Template? <input type="checkbox" id="regenerateOption" name="regenerateOption"/></td></tr>
+            <tr><a href="/views/">Upload File</a></tr>
+        </table>
+    </form>
+
+</div>
+
+</body>
+</html>
