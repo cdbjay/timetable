@@ -99,7 +99,7 @@ public class ReportMergeExcelView extends AbstractXlsxView {
                             reportModelList.stream().filter(reportModel -> reportModel.getDay()==day).sorted(hourComparator).forEach(reportModel -> {
                                 String displaySubjectName = reportModel.getSubjectName()+(reportModel.getPractical()!=null && reportModel.getPractical()?" (P)":"");
                                 createCellWithStyle(workbook, reportRow, dataColumnAtomicInteger.incrementAndGet(), displaySubjectName, ECellType.DATA);
-                                createCellWithStyle(workbook, reportRow, dataColumnAtomicInteger.incrementAndGet(), reportModel.getFirstName(), ECellType.DATA);
+                                createCellWithStyle(workbook, reportRow, dataColumnAtomicInteger.incrementAndGet(), reportModel.getFirstName(), ECellType.DATA_ALT);
                             });
 
                         });
@@ -150,10 +150,10 @@ public class ReportMergeExcelView extends AbstractXlsxView {
     private void applyStyleForHeader(Workbook wb, CellStyle style, ECellType eCellType){
         if(eCellType == ECellType.DATA) {
             style.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
+            style.setFillPattern(FillPatternType.LEAST_DOTS);
+        }else if(eCellType == ECellType.DATA_ALT) {
+            style.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
             style.setFillPattern(FillPatternType.FINE_DOTS);
-            Font font = wb.createFont();
-            font.setColor(IndexedColors.WHITE.getIndex());
-            //style.setFont(font);
         }else if(eCellType == ECellType.HEADER){
             style.setFillForegroundColor(IndexedColors.BLUE_GREY.getIndex());
             style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
@@ -176,6 +176,6 @@ public class ReportMergeExcelView extends AbstractXlsxView {
     }
 
     private enum ECellType{
-        TITLE, HEADER, DATA;
+        TITLE, HEADER, DATA, DATA_ALT;
     }
 }
